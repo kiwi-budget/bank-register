@@ -1,6 +1,5 @@
 package io.kiwi.bankregister.datamodel;
 
-
 import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
@@ -23,25 +22,20 @@ public class AccountTest {
 
 	@Inject
 	private TestEntityManager entityManager;
-	
+
 	@Inject
 	private AccountRepository accountRepository;
-	
+
 	@Test
 	public void whenFindByName_ThenReturnAccount() {
-		Account account = Account.builder()
-				.name("Checking")
-				.hidden(false)
-				.totalCleared(BigDecimal.ZERO)
-				.totalPending(BigDecimal.ZERO)
-				.totalReconciled(BigDecimal.ZERO)
-				.build();
-		
+		Account account = Account.builder().name("Checking").hidden(false).totalCleared(BigDecimal.ZERO)
+				.totalPending(BigDecimal.ZERO).totalReconciled(BigDecimal.ZERO).build();
+
 		entityManager.persist(account);
 		entityManager.flush();
-		
+
 		Account found = accountRepository.findByName(account.getName());
-		
+
 		assertThat(found).isEqualTo(account);
 	}
 }

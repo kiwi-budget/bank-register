@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Builder;
@@ -18,7 +20,7 @@ import lombok.EqualsAndHashCode;
 public class Transaction extends BaseEntity {
 	
 	private static final long serialVersionUID = -1949263982644833054L;
-	
+	@ManyToOne
 	private Account account;
 	private Long userId;
 	private BigDecimal amount;
