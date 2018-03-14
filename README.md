@@ -27,3 +27,7 @@ When Helm revision is already deployed, two ways to deploy new revision
     $ helm delete --purge bank-register
     or 
     $ helm upgrade --install bank-register ./bank-register
+
+Navigate to url after running below command to test endpoints
+
+    $ minikube service bank-register --url
