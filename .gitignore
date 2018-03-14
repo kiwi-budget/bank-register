@@ -30,3 +30,5 @@ build/
 .project
 .settings
 .vscode
+
+bin/
