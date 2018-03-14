@@ -1,6 +1,6 @@
 package io.kiwi.bankregister.datamodel;
 
-public enum AccountType {
+public enum BankAccountType {
 
 	CHECKING,
 	SAVINGS,

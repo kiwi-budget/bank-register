@@ -16,15 +16,15 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Builder
-public class Transaction extends BaseEntity {
+public class BankTransaction extends BaseEntity {
 	
 	private static final long serialVersionUID = -1949263982644833054L;
 	@ManyToOne
-	private Account account;
+	private BankAccount bankAccount;
 	private Long userId;
 	private BigDecimal amount;
 	private LocalDate date;
-	private TransactionStatus status;
+	private BankTransactionStatus status;
 	private Integer categoryId;
 	
 }

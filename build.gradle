@@ -3,6 +3,7 @@ buildscript {
 		springBootVersion = '2.0.0.RELEASE'
 	}
 	repositories {
+	    mavenLocal()
 		mavenCentral()
 	}
 	dependencies {
@@ -17,12 +18,59 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'io.kiwi'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 8
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
 }
 
+/*
+stub for defining extra source sets and config
+sourceSets {
+    smokeTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file("src/smokeTest/java")
+        }
+        resources.srcDir file("src/smokeTest/resources")
+    }
+}
+
+configurations {
+    smokeTestCompile.extendsFrom testCompile
+    smokeTestRuntime.extendsFrom testRuntime
+}
+
+test {
+    //we want display the following test events
+    testLogging {
+        showStandardStreams = true
+        events "failed", "standardOut", "standardError"
+    }
+}
+
+task smokeTest(type: Test) {
+    testClassesDir = sourceSets.smokeTest.output.classesDir
+    classpath = sourceSets.smokeTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+    
+    options {
+        systemProperties(System.getProperties())
+    }
+    
+    testLogging {
+        showStandardStreams = true
+        events "failed", "standardOut", "standardError"
+    }
+}
+
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+}
+*/
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')

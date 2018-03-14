@@ -1,6 +1,6 @@
 package io.kiwi.bankregister.datamodel;
 
-public enum TransactionStatus {
+public enum BankTransactionStatus {
 	PENDING,
 	CLEARED,
 	RECONCILED,
