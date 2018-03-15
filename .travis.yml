@@ -14,7 +14,7 @@ before_install:
 - chmod 700 get_helm.sh
 - sudo ./get_helm.sh
 - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/kubectl
-- mkdir ${HOME}/.kube && cp kube-config ${HOME}/.kube/config
+# - mkdir ${HOME}/.kube && cp kube-config ${HOME}/.kube/config
 jobs:
   include:
   - stage: build
@@ -25,10 +25,6 @@ jobs:
     - docker login -u $DOCKER_USER -p $DOCKER_PASS
     - docker build -t ${DOCKER_IMAGE_NAME}:travis-$TRAVIS_BUILD_NUMBER .
     - docker push ${DOCKER_IMAGE_NAME}
-    - kubectl config view
-    - kubectl config use-context minikube
-    - kubectl cluster-info
-    - kubectl get pods
-    - helm upgrade --install bank-register ./bank-register --set image.tag travis-$TRAVIS_BUILD_NUMBER
+    # - helm upgrade --install bank-register ./bank-register --set image.tag travis-$TRAVIS_BUILD_NUMBER
 notifications:
   email: false
