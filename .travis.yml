@@ -1,32 +1,30 @@
 sudo: required
-
-addons:
-  apt:
-    packages:
-      - git
-      - make
-      - curl
-env:
-  global:
-    - DOCKER_IMAGE_NAME=cloudposse/charts
+language: java
+jdk:
+  - oraclejdk8
 services:
   - docker
+  
+env:
+  global:
+    - DOCKER_IMAGE_NAME=kiwibudget/bank-registry:v1
 
-install:
-  - make init
-  - sudo make helm:install
-  - make helm:repo:add-remote
-  - make helm:repo:add-current
-  - make docker:login
+before_install:
+  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+  - chmod 700 get_helm.sh
+  - sudo ./get_helm.sh
+    
 
-script:
-  - make helm:repo:build REPO_NAME=incubator
-  - make helm:repo:build REPO_NAME=stable
-  - make helm:repo:build REPO_NAME=demo
-  - make helm:repo:index REPO_NAME=incubator
-  - make helm:repo:index REPO_NAME=stable
-  - make helm:repo:index REPO_NAME=demo
-  - make docker:build
+jobs:
+  include:
+    - stage: build
+      script:
+      - helm lint ./bank-register
+      if: branch = master AND type IN (push)
+      after_success:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -t ${DOCKER_IMAGE_NAME} .
+      - docker push ${DOCKER_IMAGE_NAME}
 
-after_success:
-  - make travis:docker-tag-and-push
+notifications:
+  email: false
