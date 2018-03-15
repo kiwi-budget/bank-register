@@ -21,7 +21,7 @@ jobs:
     - helm lint ./bank-register
     if: branch = master AND type IN (push)
     after_success:
-    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS
     - docker build -t ${DOCKER_IMAGE_NAME} .
     - docker push ${DOCKER_IMAGE_NAME}
 notifications:
