@@ -24,7 +24,8 @@ jobs:
     - docker login -u $DOCKER_USER -p $DOCKER_PASS
     - docker build -t ${DOCKER_IMAGE_NAME}:travis-$TRAVIS_BUILD_NUMBER .
     - docker push ${DOCKER_IMAGE_NAME}
-    - kubectl config --kubeconfig=kube-config get pods
+    - kubectl config --kubeconfig=kube-config use-context
+    - kubectl get pods
     - helm upgrade --install bank-register ./bank-register --set image.tag travis-$TRAVIS_BUILD_NUMBER
 notifications:
   email: false
