@@ -26,6 +26,8 @@ jobs:
     - docker build -t ${DOCKER_IMAGE_NAME}:travis-$TRAVIS_BUILD_NUMBER .
     - docker push ${DOCKER_IMAGE_NAME}
     - kubectl config view
+    - kubectl config use-context minikube
+    - kubectl cluster-info
     - kubectl get pods
     - helm upgrade --install bank-register ./bank-register --set image.tag travis-$TRAVIS_BUILD_NUMBER
 notifications:
